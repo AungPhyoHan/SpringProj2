@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 import com.aph.spring.proj2.springproj2.model.Employee;
 import com.aph.spring.proj2.springproj2.repository.EmployeeRepo;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -55,6 +58,7 @@ public class employeeController {
     }
 
     @PostMapping("/add")
+    @Transactional
     public ModelAndView addEmployee(@ModelAttribute("employee") Employee employee,ModelAndView mav) {
         String currentDate = getCurrentDateTime();
         // Employee
@@ -78,6 +82,7 @@ public class employeeController {
     }
 
     @PostMapping("/update")
+    @Transactional
     public ModelAndView update(@ModelAttribute("employee") Employee employee,ModelAndView mav){
         String currentDate = getCurrentDateTime();
         employee.setUpdatedAt(currentDate);
