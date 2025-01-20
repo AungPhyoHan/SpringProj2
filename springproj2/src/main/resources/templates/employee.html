@@ -30,8 +30,12 @@
     </div>
     <div class="container mt-3">
       <div class="col-md-6">
-        <p th:text="${msg}"></p>
-        <form action="/api/employee/add" method="post" th:object="${employee}">
+        <form
+          action="/api/employee/add"
+          method="post"
+          th:object="${employee}"
+          th:if="${flag}"
+        >
           <div class="form-group">
             <label for="name">NAME</label>
             <input
@@ -58,6 +62,67 @@
             value="ADD NEW"
           />
         </form>
+
+        <form
+          action="/api/employee/update"
+          method="post"
+          th:object="${employee}"
+          th:unless="${flag}"
+        >
+          <input type="hidden" name="id" th:value="*{id}" />
+          <input type="hidden" name="createdAt" th:value="*{createdAt}" />
+          <div class="form-group">
+            <label for="name">NAME</label>
+            <input
+              type="text"
+              name="name"
+              th:value="*{name}"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="position">POSITION</label>
+            <select class="form-control" name="position" th:value="*{position}">
+              <option value="IT" th:selected="(*{position} == 'IT')">IT</option>
+              <option value="HOTEL" th:selected="(*{position} == 'HOTEL')">
+                HOTEL
+              </option>
+              <option
+                value="MECHANIC"
+                th:selected="(*{position} == 'MECHANIC')"
+              >
+                MECHANIC
+              </option>
+              <option value="CIVIL" th:selected="(*{position} == 'CIVIL')">
+                CIVIL
+              </option>
+              <option
+                value="CONSTRUCTION"
+                th:selected="(*{position} == 'CONSTRUCTION')"
+              >
+                CONSTRUCTION
+              </option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <input
+                type="submit"
+                class="btn form-control"
+                style="background-color: orange"
+                value="UPDATE"
+              />
+            </div>
+            <div class="col-md-6">
+              <a
+                th:href="@{/employee/return}"
+                class="form-control btn"
+                style="background-color: antiquewhite; color: black"
+                >CANCEL</a
+              >
+            </div>
+          </div>
+        </form>
       </div>
       <div class="col-md-6">
         <table class="table">
@@ -68,6 +133,7 @@
               <th scope="col">POSITION</th>
               <th scope="col">CREATEDAT</th>
               <th scope="col">UPDATEDAT</th>
+              <th scope="col">OPTIONS</th>
             </tr>
           </thead>
           <tbody>
@@ -77,6 +143,35 @@
               <td th:text="${employee.position}"></td>
               <td th:text="${employee.createdAt}"></td>
               <td th:text="${employee.updatedAt}"></td>
+              <td>
+                <div class="row">
+                  <div class="col-md-6">
+                    <a
+                      th:href="@{/employee/update/{id}(id=${employee.id})}"
+                      class="btn form-control"
+                      style="
+                        background-color: orange;
+                        font-size: 11px;
+                        color: black;
+                      "
+                      >UPDATE</a
+                    >
+                  </div>
+                  <div class="col-md-6">
+                    <a
+                      th:href="@{/api/employee/}"
+                      class="btn form-control"
+                      style="
+                        background-color: maroon;
+                        font-size: 11px;
+                        color: white;
+                      "
+                    >
+                      DELETE
+                    </a>
+                  </div>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
