@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spring Proj Two</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <center>
+          <h2><b>Welcome to My Spring Project One</b></h2>
+        </center>
+        <br />
+        <p style="font-size: 16">
+          Hello,I am AungPhyoHan.This project is to provide CRUD without DB.
+          <br />
+          <i style="font-size: 14px"
+            >This product includes a LinkedList that provides CRUD,person Model
+            and A controller that includes a lot of different endpoints.</i
+          >
+        </p>
+      </div>
+    </div>
+    <div class="container mt-3">
+      <div class="col-md-6">
+        <p th:text="${msg}"></p>
+        <form action="/api/employee/add" method="post" th:object="${employee}">
+          <div class="form-group">
+            <label for="name">NAME</label>
+            <input
+              type="text"
+              name="name"
+              th:value="*{name}"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="position">POSITION</label>
+            <select class="form-control" name="position" th:value="*{position}">
+              <option value="IT">IT</option>
+              <option value="HOTEL">HOTEL</option>
+              <option value="MECHANIC">MECHANIC</option>
+              <option value="CIVIL">CIVIL</option>
+              <option value="CONSTRUCTION">CONSTRUCTION</option>
+            </select>
+          </div>
+          <input
+            type="submit"
+            class="btn form-control"
+            style="background-color: orange"
+            value="ADD NEW"
+          />
+        </form>
+      </div>
+      <div class="col-md-6">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">NAME</th>
+              <th scope="col">POSITION</th>
+              <th scope="col">CREATEDAT</th>
+              <th scope="col">UPDATEDAT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="employee:${employees}">
+              <th th:text="${employee.id}" scope="row"></th>
+              <td th:text="${employee.name}"></td>
+              <td th:text="${employee.position}"></td>
+              <td th:text="${employee.createdAt}"></td>
+              <td th:text="${employee.updatedAt}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
