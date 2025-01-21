@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,14 +63,11 @@ public class employeeController {
     public ModelAndView addEmployee(@ModelAttribute("employee") Employee employee,ModelAndView mav) {
         String currentDate = getCurrentDateTime();
         // Employee
-        Employee e = new Employee();
-        e.setName(employee.getName());
-        e.setPosition(employee.getPosition());
-        e.setCreatedAt(currentDate);
-        employeeRepo.saveAndFlush(e);
+        employee.setCreatedAt(currentDate);
+        employeeRepo.saveAndFlush(employee);
         mav.setViewName("redirect:/employee/");
         return mav;
-    }
+        }
 
     @GetMapping("/update/{id}")
     public ModelAndView getUpdate(@PathVariable("id") Long id,ModelAndView mav)
@@ -85,8 +83,27 @@ public class employeeController {
     @Transactional
     public ModelAndView update(@ModelAttribute("employee") Employee employee,ModelAndView mav){
         String currentDate = getCurrentDateTime();
+        flag = true;
         employee.setUpdatedAt(currentDate);
+        System.out.println(employee.getPosition());
         employeeRepo.saveAndFlush(employee);
+        mav.setViewName("redirect:/employee/");
+        return mav;
+    }
+
+    @GetMapping("/delete/{id}")
+    public ModelAndView getDelete(@PathVariable("id") Long id,ModelAndView mav){
+        Optional<Employee> employee = employeeRepo.findById(id);
+        mav.addObject("employee", employee.get());
+        mav.setViewName("employee_delete");
+        return mav;
+    }
+
+    @PostMapping("/delete")
+    public ModelAndView delete(ModelAndView mav,@RequestParam("id") Long id)
+    {
+        employeeRepo.deleteById(id);
+        System.out.println("successfuly deleted");
         mav.setViewName("redirect:/employee/");
         return mav;
     }

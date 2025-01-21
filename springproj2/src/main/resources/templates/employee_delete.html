@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spring Proj Two</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <center>
+          <h2><b>Welcome to My Spring Project One</b></h2>
+        </center>
+        <br />
+        <p style="font-size: 16">
+          Hello,I am AungPhyoHan.This project is to provide CRUD without DB.
+          <br />
+          <i style="font-size: 14px"
+            >This product includes a LinkedList that provides CRUD,person Model
+            and A controller that includes a lot of different endpoints.</i
+          >
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <form action="/api/employee/delete" method="post" th:object="${employee}">
+        <input type="hidden" name="id" th:value="*{id}" />
+        <ul class="list-group col-md-4">
+          <li class="list-group-item d-flex justify-content-between">
+            <span>ID</span>
+            <span th:text="*{id}"></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>NAME</span>
+            <span th:text="*{name}"></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>WORK</span>
+            <span th:text="*{position}"></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>CREATED AT</span>
+            <span th:text="*{createdAt}"></span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>UPDATED AT</span>
+            <span th:text="*{updatedAt}"></span>
+          </li>
+        </ul>
+
+        <input type="submit" class="form-control" value="DELETE" />
+      </form>
+    </div>
+  </body>
+</html>

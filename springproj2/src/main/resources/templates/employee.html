@@ -48,7 +48,7 @@
           <div class="form-group">
             <label for="position">POSITION</label>
             <select class="form-control" name="position" th:value="*{position}">
-              <option value="IT">IT</option>
+              <option value="IT" selected>IT</option>
               <option value="HOTEL">HOTEL</option>
               <option value="MECHANIC">MECHANIC</option>
               <option value="CIVIL">CIVIL</option>
@@ -159,7 +159,7 @@
                   </div>
                   <div class="col-md-6">
                     <a
-                      th:href="@{/api/employee/}"
+                      th:href="@{/employee/delete/{id}(id=${employee.id})}"
                       class="btn form-control"
                       style="
                         background-color: maroon;
